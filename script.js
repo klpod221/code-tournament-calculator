@@ -169,11 +169,11 @@ $(function () {
 
   btnSQRT.click(() => addSQRT());
 
-  btnNumbers.click(() => {
+  btnNumbers.click(function () {
     addNumber($(this).text());
   });
 
-  btnOperators.click(() => {
+  btnOperators.click(function () {
     addOperator($(this).text());
   });
 
