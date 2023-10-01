@@ -1,0 +1,134 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+body {
+  font-family: "Fira Code", monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #151515;
+  background-color: #dcdcdc;
+}
+
+main {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+a {
+  color: #333;
+}
+
+a:hover {
+  color: #000;
+}
+
+.calculator-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 300px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-container .calculator {
+  padding: 20px;
+}
+
+.calc-header {
+  overflow: hidden;
+  position: relative;
+  text-align: right;
+}
+
+.calc-header .calc-expression {
+  color: rgba(158, 158, 158, 0.7);
+  font-size: 1rem;
+  min-height: 1.5rem;
+  white-space: nowrap;
+  word-wrap: nomal;
+  width: 100%;
+}
+
+.calc-header .calc-expression .expression {
+  float: right;
+}
+
+.calc-header .calc-operands {
+  font-size: 3rem;
+  font-weight: 300;
+  clear: both;
+}
+
+.calc-header .calc-operands .operand {
+  overflow: visible;
+}
+
+.calc-header .calc-operands .operand.over {
+  font-size: 2rem;
+}
+
+.calc-body {
+  padding: 20px 0 0;
+}
+
+.calc-body .calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+}
+
+.calc-body .calc-button {
+  background-color: #ff8d48;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.calc-body .calc-button.calc-button--operator {
+  background-color: #ff7a00;
+}
+
+.calc-body .calc-button.calc-button--equal {
+  background-color: #ffb701;
+  color: #151515;
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.calc-body .calc-button:hover {
+  background-color: #ff7a00;
+}
+
+.calc-body .calc-button:active {
+  background-color: #ff7a00;
+  transform: scale(0.95);
+}
+
+.calc-body .calc-buttons .calc-button .fa {
+  font-size: 1.2rem;
+}
+
+.fa-heart {
+  color: #ff0000;
+}
+
+.footer {
+  position: fixed;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  margin: 10px 0;
+}

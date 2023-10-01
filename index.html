@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator | klpod221</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/151512c8c9.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="main">
+      <div class="calculator-container">
+        <div class="calculator">
+          <div class="calc-header">
+            <div class="calc-expression">
+              <span class="overflow"></span>
+              <span class="expression"></span>
+            </div>
+            <div class="calc-operands">
+              <span class="operand">0</span>
+            </div>
+          </div>
+
+          <div class="calc-body">
+            <div class="calc-buttons">
+              <div class="calc-button calc-button--clear">C</div>
+              <div class="calc-button calc-button--sign">+/-</div>
+              <div class="calc-button calc-button--percent">%</div>
+              <div class="calc-button calc-button--backspace">
+                <i class="fas fa-backspace"></i>
+              </div>
+              <div class="calc-button calc-button--number">7</div>
+              <div class="calc-button calc-button--number">8</div>
+              <div class="calc-button calc-button--number">9</div>
+              <div class="calc-button calc-button--operator">/</div>
+              <div class="calc-button calc-button--number">4</div>
+              <div class="calc-button calc-button--number">5</div>
+              <div class="calc-button calc-button--number">6</div>
+              <div class="calc-button calc-button--operator">*</div>
+              <div class="calc-button calc-button--number">1</div>
+              <div class="calc-button calc-button--number">2</div>
+              <div class="calc-button calc-button--number">3</div>
+              <div class="calc-button calc-button--operator">-</div>
+              <div class="calc-button calc-button--number">0</div>
+              <div class="calc-button calc-button--number disable">
+                <i class="fas fa-square-root-alt"></i>
+              </div>
+              <div class="calc-button calc-button--number">.</div>
+              <div class="calc-button calc-button--operator">+</div>
+            </div>
+
+            <div class="calc-button calc-button--equal">=</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__text">
+        Made with <i class="fas fa-heart"></i> by
+        <a
+          href="https://klpod221.github.io/"
+          target="_blank"
+          class="footer__link"
+          >klpod221</a
+        >
+      </p>
+    </footer>
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="big-number.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
