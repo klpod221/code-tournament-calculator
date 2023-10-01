@@ -5,6 +5,7 @@ $(function () {
   const btnSign = $(".calc-button--sign");
   const btnPercent = $(".calc-button--percent");
   const btnBack = $(".calc-button--backspace");
+  const btnSQRT = $(".calc-button--sqrt");
 
   const btnNumbers = $(".calc-button--number");
   const btnOperators = $(".calc-button--operator");
@@ -94,6 +95,12 @@ $(function () {
     }
   };
 
+  const addSQRT = () => {
+    if (operand.text() !== "0") {
+      operand.text(Math.sqrt(operand.text()));
+    }
+  }
+
   const back = () => {
     if (operand.text() !== "0") {
       operand.text(operand.text().slice(0, -1));
@@ -158,16 +165,15 @@ $(function () {
   btnSign.click(() => sign());
   btnPercent.click(() => percent());
   btnBack.click(() => back());
+  btnSQRT.click(() => addSQRT());
 
-  btnNumbers.click(function () {
-    if ($(this).hasClass("disable")) {
-      return;
-    }
+  btnSQRT.click(() => addSQRT());
 
+  btnNumbers.click(() => {
     addNumber($(this).text());
   });
 
-  btnOperators.click(function () {
+  btnOperators.click(() => {
     addOperator($(this).text());
   });
 
