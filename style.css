@@ -156,6 +156,12 @@ a:hover {
   }
 }
 
+@media (max-width: 480px) {
+  .calculator-container .calculator {
+    padding: 10px;
+  }
+}
+
 .fa-heart {
   color: #ff0000;
 }
