@@ -33,41 +33,60 @@ $(function () {
   const push = (number, operator) => {
     numbers.push(parseFloat(number));
     operators.push(operator);
-  }
+  };
 
   const addNumber = (number) => {
-    if (operand.text() === "0") {
-      operand.text(number);
-    } else {
-      if (operand.text().length > 12) {
-        return;
-      }
-
-      operand.text(operand.text() + number);
-    }
-
     if (isCalculated) {
       isCalculated = false;
+      clear();
       operand.text(number);
+      return;
     }
+
+    if (operand.text() === "0" && number === ".") {
+      operand.text("0" + number);
+      return;
+    }
+
+    if (operand.text() === "0") {
+      operand.text(number);
+      return;
+    }
+
+    if (operand.text().length > 13) {
+      return;
+    }
+
+    if (operand.text().includes(".") && number === ".") {
+      return;
+    }
+
+    operand.text(operand.text() + number);
   };
 
   const addOperator = (operator) => {
     if (isCalculated) {
       isCalculated = false;
-    } else if (operand.text() === "0") {
+      expression.text(operand.text() + operator);
+      push(operand.text(), operator);
+      operand.text("0");
       return;
+    }
+
+    if (operand.text().endsWith(".")) {
+      operand.text(operand.text() + "0");
     }
 
     if (expression.text() === "") {
       expression.text(operand.text() + operator);
       push(operand.text(), operator);
       operand.text("0");
-    } else {
-      expression.text(expression.text() + operand.text() + operator);
-      push(operand.text(), operator);
-      operand.text("0");
+      return;
     }
+
+    expression.text(expression.text() + operand.text() + operator);
+    push(operand.text(), operator);
+    operand.text("0");
   };
 
   const clear = () => {
@@ -97,7 +116,7 @@ $(function () {
     if (operand.text() !== "0") {
       operand.text(Math.sqrt(operand.text()));
     }
-  }
+  };
 
   const back = () => {
     if (operand.text() !== "0") {
@@ -131,31 +150,39 @@ $(function () {
         case "-":
           return subtract(a, b);
       }
-    }
+    };
 
     const calculateMultiplyAndDivide = () => {
       while (operators.includes("*") || operators.includes("/")) {
         for (let i = 0; i < operators.length; i++) {
           if (operators[i] === "*" || operators[i] === "/") {
-            numbers[i + 1] = calculate(numbers[i], numbers[i + 1], operators[i]);
+            numbers[i + 1] = calculate(
+              numbers[i],
+              numbers[i + 1],
+              operators[i]
+            );
             numbers[i] = 0;
             operators[i] = "";
           }
         }
       }
-    }
+    };
 
     const calculateAddAndSubtract = () => {
       while (operators.includes("+") || operators.includes("-")) {
         for (let i = 0; i < operators.length; i++) {
           if (operators[i] === "+" || operators[i] === "-") {
-            numbers[i + 1] = calculate(numbers[i], numbers[i + 1], operators[i]);
+            numbers[i + 1] = calculate(
+              numbers[i],
+              numbers[i + 1],
+              operators[i]
+            );
             numbers[i] = 0;
             operators[i] = "";
           }
         }
       }
-    }
+    };
 
     calculateMultiplyAndDivide();
     calculateAddAndSubtract();
@@ -184,7 +211,6 @@ $(function () {
       expression.text(expression.text() + operand.text());
       operand.text(calculate());
       isCalculated = true;
-      expression.text("");
       numbers = [];
       operators = [];
     }
@@ -197,17 +223,20 @@ $(function () {
 
     if (keyCode === 8) {
       e.preventDefault();
-      back();
+      btnBack.click();
+      btnBack.addClass("active");
     }
 
     if (keyCode === 13) {
       e.preventDefault();
       btnEqual.click();
+      btnEqual.addClass("active");
     }
 
     if (keyCode === 27) {
       e.preventDefault();
-      clear();
+      btnClear.click();
+      btnClear.addClass("active");
     }
 
     if (key === ".") {
@@ -215,27 +244,125 @@ $(function () {
       if (!operand.text().includes(".")) {
         addNumber(key);
       }
+
+      btnNumbers
+        .filter(function () {
+          return $(this).text() === ".";
+        })
+        .addClass("active");
     }
 
     if (keyCode === 53 && e.shiftKey) {
       e.preventDefault();
-      percent();
+      btnPercent.click();
+      btnPercent.addClass("active");
     }
 
     if (keyCode === 189 && e.shiftKey) {
       e.preventDefault();
-      sign();
+      btnSign.click();
+      btnSign.addClass("active");
     }
 
-    if (key === "0" || key === "1" || key === "2" || key === "3" || key === "4" ||
-      key === "5" || key === "6" || key === "7" || key === "8" || key === "9") {
+    if (keyCode === 82 && e.shiftKey) {
       e.preventDefault();
-      addNumber(key);
+      btnSQRT.click();
+      btnSQRT.addClass("active");
+    }
+
+    if (
+      key === "0" ||
+      key === "1" ||
+      key === "2" ||
+      key === "3" ||
+      key === "4" ||
+      key === "5" ||
+      key === "6" ||
+      key === "7" ||
+      key === "8" ||
+      key === "9"
+    ) {
+      e.preventDefault();
+      btnNumbers
+        .filter(function () {
+          return $(this).text() === key;
+        })
+        .click()
+        .addClass("active");
     }
 
     if (key === "+" || key === "-" || key === "*" || key === "/") {
       e.preventDefault();
-      addOperator(key);
+      btnOperators
+        .filter(function () {
+          return $(this).text() === key;
+        })
+        .click()
+        .addClass("active");
+    }
+  });
+
+  $(document).keyup(function (e) {
+    const key = e.key;
+    const keyCode = e.keyCode;
+
+    if (keyCode === 8) {
+      btnBack.removeClass("active");
+    }
+
+    if (keyCode === 13) {
+      btnEqual.removeClass("active");
+    }
+
+    if (keyCode === 27) {
+      btnClear.removeClass("active");
+    }
+
+    if (key === ".") {
+      btnNumbers
+        .filter(function () {
+          return $(this).text() === ".";
+        })
+        .removeClass("active");
+    }
+
+    if (keyCode === 53 && e.shiftKey) {
+      btnPercent.removeClass("active");
+    }
+
+    if (keyCode === 189 && e.shiftKey) {
+      btnSign.removeClass("active");
+    }
+
+    if (keyCode === 82 && e.shiftKey) {
+      btnSQRT.removeClass("active");
+    }
+
+    if (
+      key === "0" ||
+      key === "1" ||
+      key === "2" ||
+      key === "3" ||
+      key === "4" ||
+      key === "5" ||
+      key === "6" ||
+      key === "7" ||
+      key === "8" ||
+      key === "9"
+    ) {
+      btnNumbers
+        .filter(function () {
+          return $(this).text() === key;
+        })
+        .removeClass("active");
+    }
+
+    if (key === "+" || key === "-" || key === "*" || key === "/") {
+      btnOperators
+        .filter(function () {
+          return $(this).text() === key;
+        })
+        .removeClass("active");
     }
   });
 });
