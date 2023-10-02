@@ -15,7 +15,6 @@ $(function () {
   const operand = $(".operand");
   const expression = $(".expression");
 
-  // when operand value is changed, change font size
   const changeFontSize = () => {
     if (operand.text().length > 9) {
       operand.addClass("over");
@@ -40,7 +39,6 @@ $(function () {
     if (operand.text() === "0") {
       operand.text(number);
     } else {
-      // when operand value is over 13 digits, return
       if (operand.text().length > 12) {
         return;
       }
@@ -103,7 +101,11 @@ $(function () {
 
   const back = () => {
     if (operand.text() !== "0") {
-      operand.text(operand.text().slice(0, -1));
+      if (operand.text().length === 1) {
+        operand.text("0");
+      } else {
+        operand.text(operand.text().slice(0, -1));
+      }
     }
   };
 
@@ -185,6 +187,55 @@ $(function () {
       expression.text("");
       numbers = [];
       operators = [];
+    }
+  });
+
+  // Keyboard
+  $(document).keydown(function (e) {
+    const key = e.key;
+    const keyCode = e.keyCode;
+
+    if (keyCode === 8) {
+      e.preventDefault();
+      back();
+    }
+
+    if (keyCode === 13) {
+      e.preventDefault();
+      btnEqual.click();
+    }
+
+    if (keyCode === 27) {
+      e.preventDefault();
+      clear();
+    }
+
+    if (key === ".") {
+      e.preventDefault();
+      if (!operand.text().includes(".")) {
+        addNumber(key);
+      }
+    }
+
+    if (keyCode === 53 && e.shiftKey) {
+      e.preventDefault();
+      percent();
+    }
+
+    if (keyCode === 189 && e.shiftKey) {
+      e.preventDefault();
+      sign();
+    }
+
+    if (key === "0" || key === "1" || key === "2" || key === "3" || key === "4" ||
+      key === "5" || key === "6" || key === "7" || key === "8" || key === "9") {
+      e.preventDefault();
+      addNumber(key);
+    }
+
+    if (key === "+" || key === "-" || key === "*" || key === "/") {
+      e.preventDefault();
+      addOperator(key);
     }
   });
 });
