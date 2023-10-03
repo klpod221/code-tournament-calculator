@@ -152,40 +152,25 @@ $(function () {
       }
     };
 
-    const calculateMultiplyAndDivide = () => {
-      while (operators.includes("*") || operators.includes("/")) {
-        for (let i = 0; i < operators.length; i++) {
-          if (operators[i] === "*" || operators[i] === "/") {
-            numbers[i + 1] = calculate(
-              numbers[i],
-              numbers[i + 1],
-              operators[i]
-            );
-            numbers[i] = 0;
-            operators[i] = "";
-          }
+    while (operators.includes("*") || operators.includes("/")) {
+      for (let i = 0; i < operators.length; i++) {
+        if (operators[i] === "*" || operators[i] === "/") {
+          numbers[i + 1] = calculate(numbers[i], numbers[i + 1], operators[i]);
+          numbers[i] = 0;
+          operators[i] = "";
         }
       }
-    };
+    }
 
-    const calculateAddAndSubtract = () => {
-      while (operators.includes("+") || operators.includes("-")) {
-        for (let i = 0; i < operators.length; i++) {
-          if (operators[i] === "+" || operators[i] === "-") {
-            numbers[i + 1] = calculate(
-              numbers[i],
-              numbers[i + 1],
-              operators[i]
-            );
-            numbers[i] = 0;
-            operators[i] = "";
-          }
+    while (operators.includes("+") || operators.includes("-")) {
+      for (let i = 0; i < operators.length; i++) {
+        if (operators[i] === "+" || operators[i] === "-") {
+          numbers[i + 1] = calculate(numbers[i], numbers[i + 1], operators[i]);
+          numbers[i] = 0;
+          operators[i] = "";
         }
       }
-    };
-
-    calculateMultiplyAndDivide();
-    calculateAddAndSubtract();
+    }
 
     return numbers.reduce((a, b) => a + b);
   };
